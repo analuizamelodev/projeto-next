@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Publications } from "@/src/components/publications";
 import { Header } from "@/src/components/header";
 
-export default function Posts() {
+export default function PostsPage() {
   return (
     <div>
       <Header />
-      <h1 className="text-white">Posts</h1>
+      <Publications />
     </div>
   );
 }
