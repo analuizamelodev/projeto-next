@@ -4,7 +4,7 @@ import { useAuth } from "@/src/app/context";
 import Link from "next/link";
 import { use } from "react";
 
-export function Header() {
+export default function Header() {
   const { user } = useAuth();
   return (
     <header className="bg-black text-white px-6 py-4">
