@@ -9,6 +9,9 @@ export const metadata = {
     title: "Home - My Next.js App",
     description: "Welcome to my Next.js app!",
   },
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({

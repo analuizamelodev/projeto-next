@@ -5,16 +5,18 @@ import { getAllComments } from "@/src/services/comment-service";
 import type { Comment } from "@/src/app/types/type-comment";
 import CreateComment from "../create-comment";
 import { Publication } from "@/src/app/types/type-publication";
+import DeleteComment from "../delete-comment";
+import { useAuth } from "@/src/app/context";
 
 type CommentsProps = {
   publication: Publication;
 };
 
-
 export default function Comments({ publication }: CommentsProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [isDeleted, setIsDeleted] = useState(false);
+  const { user } = useAuth();
   const handleRevalidateComments = async () => {
     setLoading(true);
     const response = await getAllComments();
@@ -52,14 +54,22 @@ export default function Comments({ publication }: CommentsProps) {
             key={comment.id}
             className="bg-black rounded-xl border p-3"
           >
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-xs font-semibold text-white shrink-0">
-                {comment.author.name.charAt(0)}
-              </div>
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-xs font-semibold text-white shrink-0">
+                  {comment.author.name.charAt(0)}
+                </div>
 
-              <span className="text-sm font-medium text-white">
-                {comment.author.name}
-              </span>
+                <span className="text-sm font-medium text-white">
+                  {comment.author.name}
+                </span>
+              </div>
+              {comment.authorId === user?.id && (
+                <DeleteComment
+                  comment={comment}
+                  onDelete={handleRevalidateComments}
+                />
+              )}
             </div>
 
             <p className="text-sm text-white">{comment.content}</p>

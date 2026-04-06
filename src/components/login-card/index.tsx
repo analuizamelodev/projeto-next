@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAuth } from "@/src/app/context";
-import { apiClient } from "@/src/libs/api";
+import { loginUser } from "@/src/services/user-service";
 
 export default function LoginCard() {
   const { login } = useAuth();
@@ -10,21 +10,18 @@ export default function LoginCard() {
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setSubmitted(true);
-    if (!email || !password) {
-      return;
-    }
-    console.log(`Email: ${email}, Password: ${password}`);
+
+    if (!email || !password) return;
+
     try {
-      const response = await apiClient.post("/login", { email, password });
-      const data = response.data;
-      console.log(data);
+      const data = await loginUser(email, password);
+
       login(data.token, data.user);
       window.location.href = "/posts";
     } catch (error) {
-      console.error(error);
+      console.error("Erro no login:", error);
     }
   };
 
@@ -77,6 +74,15 @@ export default function LoginCard() {
       >
         Login
       </button>
+      <p className="text-sm text-gray-400 text-center">
+        You don’t have an account?{" "}
+        <a
+          href="/register"
+          className="text-purple-500 hover:text-purple-400 hover:underline transition"
+        >
+          Register here
+        </a>
+      </p>
     </div>
   );
 }

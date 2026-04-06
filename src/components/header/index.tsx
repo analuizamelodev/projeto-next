@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className="bg-black text-white px-6 py-4">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <img src="/icon.png" alt="icon" className="w-10 h-10" />
+        <img src="/icon.png" className="w-10 h-10" />
 
         <nav>
           <ul className="flex gap-6">

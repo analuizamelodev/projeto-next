@@ -24,10 +24,9 @@ export default function PostsPage() {
   }, []);
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col w-full ">
       <Header />
-      <div className="flex flex-col space-y-4 mt-4 container mx-auto px-4 max-w-6/12">
-
+      <div className="flex flex-col space-y-4 mt-4 max-w-2xl mx-auto w-full px-4">
         <SearchUsers />
         <CreatePublication onCreate={fetchPublications} />
         <Publications publications={publications} />

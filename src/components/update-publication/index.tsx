@@ -24,7 +24,7 @@ export default function UpdatePublication({ publication, onClose }: Props) {
     return (
         <div className="flex flex-col gap-3 mb-4">
             <div className="flex flex-col gap-1">
-                <label htmlFor="title" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <label htmlFor="title" className="text-xs font-semibold text-white uppercase tracking-wide">
                     Title
                 </label>
                 <input
@@ -32,11 +32,11 @@ export default function UpdatePublication({ publication, onClose }: Props) {
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    className="bg-black border border-purple-900 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-300"
                 />
             </div>
             <div className="flex flex-col gap-1">
-                <label htmlFor="content" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <label htmlFor="content" className="text-xs font-semibold text-white uppercase tracking-wide">
                     Content
                 </label>
                 <textarea
@@ -44,7 +44,7 @@ export default function UpdatePublication({ publication, onClose }: Props) {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     rows={4}
-                    className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 resize-none"
+                    className="bg-black border border-purple-900 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none"
                 />
             </div>
             <div className="flex gap-2 justify-end">

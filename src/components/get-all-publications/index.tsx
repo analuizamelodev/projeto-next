@@ -1,50 +1,42 @@
 "use client";
 
 import { useState } from "react";
-import Comments from "../get-all-comments";
+import { useAuth } from "@/src/app/context";
 import type { Publication } from "@/src/app/types/type-publication";
+import Comments from "../get-all-comments";
 import UpdatePublication from "../update-publication";
 import DeletePublication from "../delete-publication";
 
-export default function Publications({
-  publications,
-  currentUserId,
-}: {
+type PublicationsProps = {
   publications: Publication[];
-  currentUserId?: number;
-}) {
-  const sortedPublications = [...publications].sort((a, b) =>
-    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+};
 
+type PublicationCardProps = {
+  publication: Publication;
+};
+
+export default function Publications({ publications }: PublicationsProps) {
   return (
-    <div className=" mx-auto flex flex-col gap-4 w-full">
-      {sortedPublications.map((publication) => (
-        <Publication
-          key={publication.id}
-          publication={publication}
-          currentUserId={currentUserId}
-        />
-      ))}
+    <div className="mx-auto flex flex-col gap-4 w-full">
+      {[...publications]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .map((publication) => (
+          <PublicationCard key={publication.id} publication={publication} />
+        ))}
     </div>
   );
 }
 
-const Publication = ({
-  publication,
-  currentUserId,
-}: {
-  publication: Publication;
-  currentUserId?: number;
-}) => {
-  const [openComments, setOpenComments] = useState<number | null>(null);
+function PublicationCard({ publication }: PublicationCardProps) {
+  const { user } = useAuth();
+  const [openComments, setOpenComments] = useState<Publication["id"] | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
-  const [localPublication, setLocalPublication] = useState(publication);
+  const [localPublication, setLocalPublication] = useState<Publication>(publication);
 
-  const isAuthor = currentUserId === localPublication.author.id;
+  const isAuthor = user?.id === publication.author.id;
 
-  const handleClose = (updatedTitle: string, updatedContent: string) => {
+  const handleClose = (updatedTitle: Publication["title"], updatedContent: Publication["content"]) => {
     setLocalPublication((prev) => ({
       ...prev,
       title: updatedTitle,
@@ -90,10 +82,7 @@ const Publication = ({
       </div>
 
       {isEditing ? (
-        <UpdatePublication
-          publication={localPublication}
-          onClose={handleClose}
-        />
+        <UpdatePublication publication={localPublication} onClose={handleClose} />
       ) : (
         <>
           <h3 className="text-lg font-bold text-white mb-2">
@@ -108,9 +97,7 @@ const Publication = ({
       <div className="flex justify-between items-center text-xs text-white mt-2">
         <button
           onClick={() =>
-            setOpenComments(
-              openComments === localPublication.id ? null : localPublication.id
-            )
+            setOpenComments(openComments === localPublication.id ? null : localPublication.id)
           }
           className="text-white font-medium hover:text-purple-600 transition-colors"
         >
@@ -126,4 +113,4 @@ const Publication = ({
       )}
     </div>
   );
-};
+}
