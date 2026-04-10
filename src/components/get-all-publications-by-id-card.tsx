@@ -12,10 +12,6 @@ type PublicationsProps = {
     publications: Publication[];
 };
 
-type PublicationCardProps = {
-    publication: Publication;
-};
-
 export default function Publications({ publications }: PublicationsProps) {
     const { user } = useAuth();
     const [data, setData] = useState<Publication[]>(publications);
@@ -40,20 +36,15 @@ export default function Publications({ publications }: PublicationsProps) {
                         new Date(a.createdAt).getTime()
                 )
                 .map((publication) => (
-                    <PublicationCard
-                        key={publication.id}
-                        publication={publication}
-                    />
+                    <PublicationCard key={publication.id} publication={publication} />
                 ))}
         </div>
     );
 }
 
-function PublicationCard({ publication }: PublicationCardProps) {
+function PublicationCard({ publication }: { publication: Publication }) {
     const { user } = useAuth();
-    const [openComments, setOpenComments] = useState<Publication["id"] | null>(
-        null
-    );
+    const [openComments, setOpenComments] = useState<Publication["id"] | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
     const [localPublication, setLocalPublication] =
@@ -97,12 +88,14 @@ function PublicationCard({ publication }: PublicationCardProps) {
                             >
                                 {isEditing ? "Cancel" : "Edit"}
                             </button>
+
                             <DeletePublication
                                 publication={localPublication}
                                 onDelete={() => setIsDeleted(true)}
                             />
                         </>
                     )}
+
                     <span className="text-xs text-white">
                         {new Date(localPublication.createdAt).toLocaleDateString("en-US")}
                     </span>
@@ -140,6 +133,7 @@ function PublicationCard({ publication }: PublicationCardProps) {
                         ? "Close comments"
                         : "Open Comment"}
                 </button>
+
                 <span>
                     Updated on{" "}
                     {new Date(localPublication.updatedAt).toLocaleDateString("en-US")}

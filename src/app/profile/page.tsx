@@ -40,7 +40,7 @@ export default function PostsPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex justify-center bg-black text-white">
+    <div className="min-h-screen w-full flex justify-center">
       <div className="w-full max-w-2xl px-4 space-y-4 mt-6">
 
         <ProfileCard />
