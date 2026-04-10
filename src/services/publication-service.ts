@@ -25,3 +25,8 @@ export const updateByIdPublication = async (id: number, title: string, content: 
 export const deleteByIdPublication = async (id: number) => {
   await apiClient.delete(`/publication/${id}`);
 };
+
+export const getPublicationsById = async (userId: number) => {
+  const response = await apiClient.get(`/publication/user/${userId}`);
+  return response.data;
+};

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useAuth } from "@/src/app/context";
 import type { Publication } from "@/src/app/types/type-publication";
-import Comments from "../get-all-comments";
-import UpdatePublication from "../update-publication";
-import DeletePublication from "../delete-publication";
+import Comments from "./get-all-comments-card";
+import UpdatePublication from "./update-publication-card";
+import DeletePublication from "./delete-publication-card";
 
 type PublicationsProps = {
   publications: Publication[];

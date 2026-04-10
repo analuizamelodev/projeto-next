@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { getAllComments } from "@/src/services/comment-service";
 import type { Comment } from "@/src/app/types/type-comment";
-import CreateComment from "../create-comment";
+import CreateComment from "./create-comment-card";
 import { Publication } from "@/src/app/types/type-publication";
-import DeleteComment from "../delete-comment";
+import DeleteComment from "./delete-comment-card";
 import { useAuth } from "@/src/app/context";
 
 type CommentsProps = {

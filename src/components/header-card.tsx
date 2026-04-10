@@ -17,8 +17,8 @@ export default function Header() {
               {user?.name ? user.name.charAt(0) : "U"}
             </li>
             <li>
-              <Link href="/perfil" className="hover:text-white transition">
-                {user?.name || "Perfil"}
+              <Link href="/profile" className="hover:text-white transition">
+                {user?.name || "Profile"}
               </Link>
             </li>
             <li>
